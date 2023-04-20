@@ -9,6 +9,11 @@ import (
 const filename = "PDFTRON-test-pdf.pdf"
 const beeFilename = "bee-movie-script.pdf"
 
+type Sentences struct {
+	stringSentence string
+	metadata       string
+}
+
 func main() {
 
 	PDFNetInitialize("demo:1681479144517:7df72d550300000000cd5af736e910cc63e454cadb25e0d06c2b7147ee")
@@ -19,12 +24,16 @@ func main() {
 	// Printing the filename
 	fmt.Println(doc.GetFileName())
 
+	doc.Close()
+
 	//Read text from a file example from - https://docs.apryse.com/documentation/linux/guides/features/extraction/text-extract/
 	readTextFromFile()
 
 	//Read text from a file on a sentence basis.
 	readTextOnASentenceBasis()
 
+	// Converting txt file
+	openTXTFile()
 }
 
 func readTextFromFile() {
@@ -49,6 +58,7 @@ func readTextFromFile() {
 		line = line.GetNextLine()
 	}
 
+	doc.Close()
 }
 
 func readTextOnASentenceBasis() {
@@ -88,4 +98,19 @@ func readTextOnASentenceBasis() {
 		}
 		line = line.GetNextLine()
 	}
+
+	doc.Close()
+
+}
+
+func openTXTFile() {
+
+	doc := NewPDFDoc()
+	txtFile := "pdftron-txt-file.txt"
+
+	// Converting txt to pdf. Maybe a bit overkill to convert .txt to pdf.
+	ConvertFromText(doc, txtFile)
+
+	// The second argument is a bitwise disjunction of flags used as options during serialization.
+	doc.Save("pdftron-txt-to-pdf-file.pdf", uint(SDFDocE_remove_unused))
 }
