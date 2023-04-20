@@ -52,7 +52,6 @@ func readTextFromFile() {
 }
 
 func readTextOnASentenceBasis() {
-
 	var sentence string
 	var wordString string
 	var finalCharInWord string
@@ -72,7 +71,7 @@ func readTextOnASentenceBasis() {
 			// to get words in string you need to call .GetString() on a "word".
 			wordString = word.GetString()
 
-			// Append word to sentence (is is possible to use bytes pgk to do it in O(n) time
+			// Append word to sentence (it is possible to use bytes pgk to do it in O(n) time)
 			// https://stackoverflow.com/questions/1760757/how-to-efficiently-concatenate-strings-in-go)
 			sentence += wordString + " "
 
